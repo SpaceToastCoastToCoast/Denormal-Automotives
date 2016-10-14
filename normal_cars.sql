@@ -62,6 +62,7 @@ WHERE models.model_code = car_models.model_code);
 
 ALTER TABLE car_models DROP COLUMN model_code;
 ALTER TABLE car_models DROP COLUMN model_title;
+ALTER TABLE car_models DROP COLUMN make_id;
 
 INSERT INTO years(year)
 SELECT DISTINCT ON (year) year FROM car_models;
@@ -77,7 +78,8 @@ ALTER TABLE car_models DROP COLUMN year;
 \dS car_models
 
 SELECT DISTINCT ON (make_title) make_title FROM makes
-INNER JOIN car_models ON makes.id = car_models.make_id;
+INNER JOIN models ON makes.id = models.make_id
+INNER JOIN car_models ON models.model_id = car_models.model_id;
 
 SELECT DISTINCT ON (model_title) model_title FROM models
 INNER JOIN car_models ON models.model_id = car_models.model_id
