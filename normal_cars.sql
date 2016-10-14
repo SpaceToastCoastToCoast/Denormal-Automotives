@@ -78,3 +78,20 @@ ALTER TABLE car_models DROP COLUMN year;
 
 SELECT DISTINCT ON (make_title) make_title FROM makes
 INNER JOIN car_models ON makes.id = car_models.make_id;
+
+SELECT DISTINCT ON (model_title) model_title FROM models
+INNER JOIN car_models ON models.model_id = car_models.model_id
+INNER JOIN makes ON models.make_id = makes.id
+WHERE makes.make_code = 'VOLKS';
+
+SELECT make_code, model_code, model_title, year FROM car_models
+INNER JOIN years ON car_models.year_id = years.id
+INNER JOIN models ON car_models.model_id = models.model_id
+INNER JOIN makes ON models.make_id = makes.id
+WHERE makes.make_code = 'LAM';
+
+SELECT * FROM car_models
+INNER JOIN years ON car_models.year_id = years.id
+INNER JOIN models ON car_models.model_id = models.model_id
+INNER JOIN makes ON models.make_id = makes.id
+WHERE years.year BETWEEN 2010 AND 2015;
